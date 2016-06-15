@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<project name="Testing" default="execute">
+	
+	<!-- Project specific configurations -->
+	<property name="project.version" value="1.0" /> 
+	<property name="executable.class" value="HelloWorld" />
+	<property name="executable.class.args" value="Abhay" />
+	
+	<!-- Common -->
+	<property name="base.dir" value="." /> 
+	<property name="src.dir" value="${base.dir}/src" />
+	<property name="build.dir" value= "${base.dir}/build" />
+	<property name="classes.dir" value="${build.dir}/classes"/>
+	<property name="jar.dir" value="${build.dir}/jar"/>
+	<property name="jar.file" value="${jar.dir}/${ant.project.name}-${project.version}.jar"/>
+	<property name="lib.dir" value="${base.dir}/lib"/>	
+	
+	<path id="classpath">
+	     <fileset dir="${lib.dir}">
+	        <include name="**/*.jar"/>
+	     </fileset>
+		<pathelement location="${jar.file}" />
+	</path>
+	
+	<target name="clean" description="clean build" depends="">
+		<delete dir="${build.dir}"/>
+		<mkdir dir="${build.dir}"/>
+	</target>
+	
+	<target name="compile" description="compile" depends="clean">
+		<mkdir dir="${classes.dir}"/>
+		<javac srcdir="${src.dir}" destdir="${classes.dir}" classpathref = "classpath"/>
+	</target>
+	
+	
+	<target name="jar" description="creates jars" depends="compile">
+		<mkdir dir="${jar.dir}"/>
+		<jar jarfile="${jar.file}" basedir="${classes.dir}"/>
+	</target>
+
+	<target name="execute" description="execute" depends="jar">
+	    <java classname="${executable.class}" fork="yes">
+	      <arg value="${executable.class.args}" />
+	      <classpath refid="classpath"/>
+	    </java>
+	</target>
+	
+</project>
