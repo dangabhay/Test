@@ -4,7 +4,7 @@
 	<!-- Project specific configurations -->
 	<property name="project.version" value="1.0" /> 
 	<property name="executable.class" value="HelloWorld" />
-	<property name="executable.class.args" value="Abhay" />
+	<property name="executable.class.args" value="" />
 	
 	<!-- Common -->
 	<property name="base.dir" value="." /> 
@@ -41,6 +41,9 @@
 	<target name="execute" description="execute" depends="jar">
 	    <java classname="${executable.class}" fork="yes">
 	      <arg value="${executable.class.args}" />
+	    	<jvmarg value="-Xmx1000M"/>
+	    	<jvmarg value="-Xms100M"/>
+	    	<jvmarg value="-XX:+UseG1GC"/>
 	      <classpath refid="classpath"/>
 	    </java>
 	</target>
