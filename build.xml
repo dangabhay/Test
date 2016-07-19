@@ -68,4 +68,10 @@
 	    </java>
 	</target>
 	
+	<target name="BeanTester" description="Test sample beans code" depends="jar">
+	    <java classname="com.abhay.spring.main.MainApplication" fork="yes">
+	      <classpath refid="classpath"/>
+	    </java>
+	</target>
+	
 </project>
